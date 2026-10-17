@@ -19,10 +19,10 @@ const LoginPage = () => {
       toast.success(res.message);
       localStorage.setItem('user', JSON.stringify(res.user));
       if (res.user.role === 'admin') {
-        navigate('/admin/dashboard')
+        navigate('/admin/dashboard', { replace: true })
       }
       if (res.user.role === 'vendor') {
-        navigate('/vendor/dashboard')
+        navigate('/vendor/dashboard', { replace: true })
       }
       if (res.user.role === 'user')
         navigate('/');

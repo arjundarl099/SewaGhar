@@ -1,3 +1,4 @@
+import { Eye, Pencil, Trash2 } from 'lucide-react'
 import React from 'react'
 
 const VendorTable = ({ vendors, onDelete }) => {
@@ -107,27 +108,31 @@ const VendorTable = ({ vendors, onDelete }) => {
                                         </span>
                                     </td>
 
+
                                     {/* Actions */}
                                     <td className="px-6 py-4">
                                         <div className="flex justify-center gap-2">
 
                                             <button
-                                                className="rounded-lg bg-blue-50 px-3 py-2 text-xs font-medium text-blue-600 transition hover:bg-blue-100"
+                                                title="View vendor"
+                                                className="rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100"
                                             >
-                                                View
+                                                <Eye size={17} />
                                             </button>
 
                                             <button
-                                                className="rounded-lg bg-orange-50 px-3 py-2 text-xs font-medium text-orange-600 transition hover:bg-orange-100"
+                                                title="Edit vendor"
+                                                className="rounded-lg bg-orange-50 p-2 text-orange-600 transition hover:bg-orange-100"
                                             >
-                                                Edit
+                                                <Pencil size={17} />
                                             </button>
 
                                             <button
                                                 onClick={() => onDelete(vendor)}
-                                                className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-100"
+                                                title="Delete vendor"
+                                                className="rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100"
                                             >
-                                                Delete
+                                                <Trash2 size={17} />
                                             </button>
 
                                         </div>

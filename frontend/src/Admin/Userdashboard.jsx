@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useDeleteUserMutation, useGetAllUsersQuery } from "../redux/features/userSlice";
+import { useDeleteUserMutation, useGetAllUsersQuery, useGetMeQuery } from "../redux/features/userSlice";
 import DeleteModal from "../Components/Modals/DeleteModal";
 import { toast } from "react-toastify";
 import UserTable from "../Components/User/UserTable";
 
 const Userdashboard = () => {
     const { data, isLoading, error } = useGetAllUsersQuery();
+    const { data: getMeData } = useGetMeQuery();
     const [deleteUser, { isLoading: isDeleting, error: deleteEror }] = useDeleteUserMutation();
     const [name, setName] = useState(null);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -15,6 +16,7 @@ const Userdashboard = () => {
         setSelectedUser(user.id);
         setDeleteModal(true);
     };
+    const currentUser = getMeData?.loggedUserInfo;
 
 
     const handleRemove = async () => {
@@ -78,8 +80,11 @@ const Userdashboard = () => {
                     </div>
                 </div>
             </div>
-            <UserTable users={users} onDelete={handleDeleteClick} />
-
+            <UserTable
+                users={users}
+                onDelete={handleDeleteClick}
+                currentUserId={currentUser?.id}
+            />
 
             <div>
                 {

@@ -1,5 +1,5 @@
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useGetMeQuery } from '../redux/features/userSlice';
 
 const NAV_NavLinkS = [
@@ -11,6 +11,16 @@ const NAV_NavLinkS = [
 
 const Header = () => {
     const { data, isLoading } = useGetMeQuery();
+    const navigate = useNavigate();
+    const handleProfileClick = () => {
+        if (user?.role === "admin") {
+            navigate("/admin/dashboard");
+        } else if (user?.role === "vendor") {
+            navigate("/vendor/dashboard");
+        } else if (user?.role === "user") {
+            navigate("/user/dashboard");
+        }
+    };
 
     const user = data?.loggedUserInfo;
     return (
@@ -41,25 +51,27 @@ const Header = () => {
 
                 <div>
                     {user ? (
-                        <NavLink to="/profile">
-                            <div className="flex items-center gap-2">
-                                {user.profilePic ? (
-                                    <img
-                                        src={user.profilePic}
-                                        alt={user.username}
-                                        className="h-9 w-9 rounded-full object-cover"
-                                    />
-                                ) : (
-                                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 font-semibold text-white">
-                                        {user.username.charAt(0).toUpperCase()}
-                                    </div>
-                                )}
+                        <button
+                            type="button"
+                            onClick={handleProfileClick}
+                            className="flex items-center gap-2"
+                        >
+                            {user.profilePic ? (
+                                <img
+                                    src={user.profilePic}
+                                    alt={user.username}
+                                    className="h-9 w-9 rounded-full object-cover"
+                                />
+                            ) : (
+                                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500 font-semibold text-white">
+                                    {user.username?.charAt(0).toUpperCase()}
+                                </div>
+                            )}
 
-                                <span className="font-medium text-slate-700">
-                                    {user.username}
-                                </span>
-                            </div>
-                        </NavLink>
+                            <span className="font-medium text-slate-700">
+                                {user.username}
+                            </span>
+                        </button>
                     ) : (
                         <NavLink
                             to="/login"

@@ -17,6 +17,14 @@ export const registerApi = indexSlice.injectEndpoints({
             }),
             invalidatesTags: ['user'],
         }),
+        updateUser: builder.mutation({
+            query: ({ id, ...data }) => ({
+                url: `/auth/update/${id}`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ['user'],
+        }),
         logout: builder.mutation({
             query: () => ({
                 url: '/auth/logout',
@@ -52,4 +60,5 @@ export const {
     useDeleteUserMutation,
     useGetAllUsersQuery,
     useGetMeQuery,
+    useUpdateUserMutation
 } = registerApi;

@@ -44,7 +44,7 @@ const ServicePostDashboard = () => {
         )
     }
 
-    const posts = data?.posts || []
+    const posts = data?.posts || [];
 
     return (
         <>

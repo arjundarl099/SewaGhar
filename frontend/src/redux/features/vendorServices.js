@@ -8,7 +8,15 @@ export const vendorServiceApi = indexSlice.injectEndpoints({
             }),
             providesTags: ['vendor services']
         }),
+        createVendor: builder.mutation({
+            query: (data) => ({
+                url: '/vendor',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['vendor'],
+        }),
     })
 })
 
-export const { useGetAllVendorServicesQuery } = vendorServiceApi;
+export const { useGetAllVendorServicesQuery, useCreateVendorMutation } = vendorServiceApi;

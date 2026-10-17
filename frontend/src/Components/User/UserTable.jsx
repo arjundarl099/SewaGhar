@@ -1,6 +1,7 @@
+import { Eye, Pencil, Trash2 } from 'lucide-react'
 import React from 'react'
 
-const UserTable = ({ users, onDelete }) => {
+const UserTable = ({ users, onDelete, currentUserId }) => {
     return (
 
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
@@ -91,31 +92,39 @@ const UserTable = ({ users, onDelete }) => {
                                         {user.address || "N/A"}
                                     </td>
 
+                                    {/* Actions */}
                                     <td className="px-6 py-4">
-                                        <div className="flex justify-center gap-2">
+                                        <div className="flex  gap-2">
 
                                             <button
-                                                className="rounded-lg bg-blue-50 px-3 py-2 text-xs font-medium text-blue-600 transition hover:bg-blue-100"
+                                                title="View user"
+                                                className="rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100"
                                             >
-                                                View
+                                                <Eye size={17} />
                                             </button>
-
+ 
                                             <button
-                                                className="rounded-lg bg-orange-50 px-3 py-2 text-xs font-medium text-orange-600 transition hover:bg-orange-100"
+                                                title="Edit user"
+                                                className="rounded-lg bg-orange-50 p-2 text-orange-600 transition hover:bg-orange-100"
                                             >
-                                                Edit
+                                                <Pencil size={17} />
                                             </button>
 
-                                            <button
-                                                onClick={() => onDelete(user)}
-
-                                                className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600 transition hover:bg-red-100"
-                                            >
-                                                Delete
-                                            </button>
+                                            {/* Hide Delete Button for Logged-in User */}
+                                            {user.id !== currentUserId && (
+                                                <button
+                                                    onClick={() => onDelete(user)}
+                                                    title="Delete user"
+                                                    className="rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100"
+                                                >
+                                                    <Trash2 size={17} />
+                                                </button>
+                                            )}
 
                                         </div>
                                     </td>
+
+
 
                                 </tr>
                             ))
